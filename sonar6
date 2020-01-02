@@ -2,7 +2,7 @@
 node('build'){
 
   stage('scm checkout'){
- git URL: 'https://github.com/Surendra218/my-app' branch:"${params.brach}"
+ git URL: 'https://github.com/Surendra218/my-app' branch:"${params.branch}"
   }
   stage('compile package'){
   def maven_home= tool name: 'Apache Maven 3.0.5', type: 'maven'
