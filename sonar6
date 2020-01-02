@@ -1,0 +1,17 @@
+node('build'){
+   properties([parameters([choice(choices: ['master', 'feature1', 'surendra'], description: 'select the branch to proceed', name: 'branch')])])
+   
+  stage('scm checkout'){
+ git URL: 'https://github.com/Surendra218/my-app' branch:"${params.brach}"
+  }
+  stage('compile package'){
+  def maven_home= tool name: 'Apache Maven 3.0.5', type: 'maven'
+  sh "${maven_home}/bin/mvn package"
+  }
+  stage('sonar scanner'){
+  def maven_home= tool name: 'Apache Maven 3.0.5', type: 'maven'
+  withSonarQubeEnv('sonar-7')
+  sh "${maven_home}/bin/mvn sonar:sonar"
+  }
+  
+  }
