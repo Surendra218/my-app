@@ -19,7 +19,7 @@ node(){
   }
   stage('Tomcat-Deployment'){
    sshagent (credentials: ['Tomcat-Deployment']) {
-    sh 'scp  -o StrictHostKeyChecking=no target/*.war cloud_user@172.31.47.131:/opt/tomcat/webapps/'
+    sh 'scp target/*.war cloud_user@172.31.47.131:/opt/tomcat/webapps/'
     }
   
   }
