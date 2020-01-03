@@ -1,0 +1,26 @@
+properties([parameters([choice(choices: ['master', 'feature1', 'surendra'], description: 'select the branch to proceed', name: 'branch')])])
+node(){
+
+  stage('scm checkout'){
+ git url: 'https://github.com/Surendra218/my-app', branch: "${params.branch}"
+  }
+  stage('compile package'){
+  def maven_home= tool name: 'Apache Maven 3.0.5', type: 'maven'
+  sh "${maven_home}/bin/mvn package"
+  }
+  stage('Junit'){
+  junit 'target/surefire-reports/*.xml'
+  }
+  stage('sonar scanner'){
+  def maven_home= tool name: 'Apache Maven 3.0.5', type: 'maven'
+  withSonarQubeEnv('sonar-7'){
+  sh "${maven_home}/bin/mvn sonar:sonar"
+  }
+  }
+  stage('Tomcat-Deployment'){
+   sshagent (credentials: ['Tomcat-Server']) {
+    sh 'scp  -o StrictHostKeyChecking=no target/*.war cloud_user@172.31.47.131:/opt/tomcat/webapps/'
+    }
+  
+  }
+  }
