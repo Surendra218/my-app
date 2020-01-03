@@ -8,6 +8,9 @@ node('build'){
   def maven_home= tool name: 'Apache Maven 3.0.5', type: 'maven'
   sh "${maven_home}/bin/mvn package"
   }
+  stage('Junit'){
+  sh 'junit 'target/surefire-reports/*.xml''
+  }
   stage('sonar scanner'){
   def maven_home= tool name: 'Apache Maven 3.0.5', type: 'maven'
   withSonarQubeEnv('sonar-7'){
