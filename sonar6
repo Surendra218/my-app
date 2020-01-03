@@ -1,5 +1,5 @@
  properties([parameters([choice(choices: ['master', 'feature1', 'surendra'], description: 'select the branch to proceed', name: 'branch')])])
-node(build){
+node('build'){
 
   stage('scm checkout'){
  git url: 'https://github.com/Surendra218/my-app', branch: "${params.branch}"
