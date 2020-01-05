@@ -17,10 +17,10 @@ node(){
   sh "${maven_home}/bin/mvn sonar:sonar"
   }
   }
-  stage('Tomcat-Deployment'){
+ /* stage('Tomcat-Deployment'){
    sshagent (credentials: ['deployment1']) {
     sh 'scp target/*.war cloud_user@172.31.47.131:/opt/tomcat/webapps/'
     }
   
-  }
+  }*/
   }
