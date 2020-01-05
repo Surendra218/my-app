@@ -18,7 +18,7 @@ node(){
   }
   }
   stage('Tomcat-Deployment'){
-   sshagent (credentials: ['Tomcat-Deployment']) {
+   sshagent (credentials: ['deployment1']) {
     sh 'scp target/*.war cloud_user@172.31.47.131:/opt/tomcat/webapps/'
     }
   
